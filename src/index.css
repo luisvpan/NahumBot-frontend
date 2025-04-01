@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes turbo-background {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.turbo-mode {
+  background: linear-gradient(
+    45deg,
+    #1f2937 0%,
+    #374151 25%,
+    #4b5563 50%,
+    #374151 75%,
+    #1f2937 100%
+  );
+  background-size: 400% 400%;
+  animation: turbo-background 3s ease infinite;
+}
