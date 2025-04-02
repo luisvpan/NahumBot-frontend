@@ -118,7 +118,7 @@ export default function App() {
                     <div className="text-center py-3">
                       <h3 className="text-base text-gray-400">Turbidez</h3>
                       <h2 className="text-xl font-semibold">
-                        {item.turbidez.toFixed(2)} UNF
+                        {item.turbidez.toFixed(2)}
                       </h2>
                     </div>
                     <div className="text-center py-3">
@@ -126,7 +126,7 @@ export default function App() {
                         Sólidos disueltos
                       </h3>
                       <h2 className="text-xl font-semibold">
-                        {item.tds.toFixed(2)}
+                        {item.tds.toFixed(2)} ppm
                       </h2>
                     </div>
                     <div className="text-center py-3">
