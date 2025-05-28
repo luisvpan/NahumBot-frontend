@@ -6,6 +6,7 @@ import RobotoContext from "./RobotoContext";
 import useIsConnected from "../hooks/useIsConnected";
 import useRobotoStatus from "../hooks/useRobotoStatus";
 import useRobotoSensors from "../hooks/useRobotoSensors";
+import useRobotoBomb from "../hooks/useRobotoBomb";
 
 export const RobotoContextProvider = ({ children }: Props) => {
   const socket = useSocket();
@@ -14,6 +15,7 @@ export const RobotoContextProvider = ({ children }: Props) => {
   const robotoKonamiHook = useKonamiCode();
   const robotoStatusHook = useRobotoStatus();
   const robotoSensorsHook = useRobotoSensors();
+  const robotoBombHook = useRobotoBomb();
   const isConnected = useIsConnected(socket);
 
   const contextValue = {
@@ -22,6 +24,7 @@ export const RobotoContextProvider = ({ children }: Props) => {
     ...robotoKonamiHook,
     ...robotoStatusHook,
     ...robotoSensorsHook,
+    ...robotoBombHook,
     socket,
     isConnected,
   };

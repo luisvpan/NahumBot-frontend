@@ -5,6 +5,7 @@ import { Socket } from "socket.io-client";
 import { KonamiCodeHook } from "../hooks/useKonamiCode";
 import { MovementMode, RobotoStatusHook } from "../hooks/useRobotoStatus";
 import { RobotoSensorsHook } from "../hooks/useRobotoSensors";
+import { BombModeEnum, RobotoBombHook } from "../hooks/useRobotoBomb";
 
 const RobotoContext = createContext<RobotoContextI>({
   streamFrame: null,
@@ -19,6 +20,7 @@ const RobotoContext = createContext<RobotoContextI>({
     orientation: null,
     speed: null,
   },
+  robotoBombMode: BombModeEnum.NONE,
   setHeading: function (): void {
     throw new Error("Function not implemented.");
   },
@@ -26,6 +28,9 @@ const RobotoContext = createContext<RobotoContextI>({
     throw new Error("Function not implemented.");
   },
   setCoordinates: function (): void {
+    throw new Error("Function not implemented.");
+  },
+  setBombMode: function (): void {
     throw new Error("Function not implemented.");
   },
   coordinates: null,
@@ -50,6 +55,7 @@ const RobotoContext = createContext<RobotoContextI>({
     movementMode: MovementMode.CONTROL,
     running: false,
     movementSpeed: 0,
+    waterBombIsOn: false,
   },
   setMovementMode: function (): void {
     throw new Error("Function not implemented.");
@@ -77,6 +83,7 @@ export type RobotoContextI = RobotoStreamHook &
   RobotoLocationHook &
   KonamiCodeHook &
   RobotoSensorsHook &
+  RobotoBombHook &
   RobotoStatusHook & {
     socket: Socket | null;
     isConnected: boolean;

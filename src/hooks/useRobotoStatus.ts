@@ -12,11 +12,13 @@ export default function useRobotoLocation(): RobotoStatusHook {
     MovementMode.CONTROL
   );
   const [movementSpeed, setMovementSpeed] = useState<number>(0);
+  const [waterBombIsOn, setWaterBombIsOn] = useState<boolean>(false);
 
   const changeRobotoStatus = useCallback((status: RobotoStatus) => {
     setMovementMode(status.movementMode);
     setRunning(status.running);
     setMovementSpeed(status.movementSpeed);
+    setWaterBombIsOn(status.waterBombIsOn);
   }, []);
 
   const robotoStatus = useMemo(() => {
@@ -24,8 +26,9 @@ export default function useRobotoLocation(): RobotoStatusHook {
       running,
       movementMode,
       movementSpeed,
+      waterBombIsOn,
     };
-  }, [running, movementMode, movementSpeed]);
+  }, [running, movementMode, movementSpeed, waterBombIsOn]);
 
   return {
     robotoStatus,
@@ -46,6 +49,7 @@ export interface RobotoStatus {
   movementMode: MovementMode;
   running: boolean;
   movementSpeed: number;
+  waterBombIsOn: boolean;
 }
 
 export interface RobotoStatusHook {
