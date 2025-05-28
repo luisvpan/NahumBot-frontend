@@ -33,21 +33,15 @@ export default function App() {
   };
 
   const handleFillingBombToggle = () => {
-    if (robotoBombMode === BombModeEnum.FILL) {
-      setBombMode(BombModeEnum.NONE);
-    } else {
-      console.log("llenando bomba...");
-      setBombMode(BombModeEnum.FILL);
-    }
+    console.log("Llenando...");
+    if (!socket) return;
+    socket.emit("change-water-bomb-mode", "llenar");
   };
 
   const handleEmptyBombToggle = () => {
-    if (robotoBombMode === BombModeEnum.EMPTY) {
-      setBombMode(BombModeEnum.NONE);
-    } else {
-      console.log("vaciando bomba...");
-      setBombMode(BombModeEnum.EMPTY);
-    }
+    console.log("Vaciando...");
+    if (!socket) return;
+    socket.emit("change-water-bomb-mode", "vaciar");
   };
 
   useEffect(() => {
@@ -73,6 +67,10 @@ export default function App() {
     });
     socket.on("receive-current-status", (data) => {
       changeRobotoStatus(data);
+    });
+    socket.on("receive-water-bomb-status", (data) => {
+      console.log(data);
+      setBombMode(data);
     });
     socket.on("receive-current-sensors", (data) => {
       setSensorHistory([
@@ -100,6 +98,7 @@ export default function App() {
     socket,
     setSensorHistory,
     sensorHistory,
+    setBombMode,
   ]);
   return (
     <div
