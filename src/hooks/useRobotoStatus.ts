@@ -5,6 +5,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { BombModeEnum } from "./useRobotoBomb";
 
 export default function useRobotoLocation(): RobotoStatusHook {
   const [running, setRunning] = useState<boolean>(false);
@@ -12,13 +13,14 @@ export default function useRobotoLocation(): RobotoStatusHook {
     MovementMode.CONTROL
   );
   const [movementSpeed, setMovementSpeed] = useState<number>(0);
-  const [waterBombIsOn, setWaterBombIsOn] = useState<boolean>(false);
+  const [bombMode, setBombMode] = useState<BombModeEnum>(BombModeEnum.NONE);
 
   const changeRobotoStatus = useCallback((status: RobotoStatus) => {
+    console.log(status);
     setMovementMode(status.movementMode);
     setRunning(status.running);
     setMovementSpeed(status.movementSpeed);
-    setWaterBombIsOn(status.waterBombIsOn);
+    setBombMode(status.bombMode);
   }, []);
 
   const robotoStatus = useMemo(() => {
@@ -26,15 +28,16 @@ export default function useRobotoLocation(): RobotoStatusHook {
       running,
       movementMode,
       movementSpeed,
-      waterBombIsOn,
+      bombMode,
     };
-  }, [running, movementMode, movementSpeed, waterBombIsOn]);
+  }, [running, movementMode, movementSpeed, bombMode]);
 
   return {
     robotoStatus,
     changeRobotoStatus,
     setMovementMode,
     setMovementSpeed,
+    setBombMode,
   };
 }
 
@@ -49,7 +52,7 @@ export interface RobotoStatus {
   movementMode: MovementMode;
   running: boolean;
   movementSpeed: number;
-  waterBombIsOn: boolean;
+  bombMode: BombModeEnum;
 }
 
 export interface RobotoStatusHook {
@@ -57,4 +60,5 @@ export interface RobotoStatusHook {
   robotoStatus: RobotoStatus;
   setMovementMode: Dispatch<SetStateAction<MovementMode>>;
   setMovementSpeed: Dispatch<SetStateAction<number>>;
+  setBombMode: Dispatch<SetStateAction<BombModeEnum>>;
 }
